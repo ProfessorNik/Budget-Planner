@@ -1,9 +1,8 @@
 package ru.shift.budgetplanner.domain;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+
+import java.math.BigDecimal;
 
 @Entity
 @Table(name="purcheses")
@@ -12,11 +11,23 @@ public class Purchase {
     @Column(name = "id", nullable = false)
     private Long id;
 
-    private Integer cost;
+    private BigDecimal cost;
 
-    //private Category category;
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    private Category category;
 
-    //private User buyer;
+    @ManyToOne
+    @JoinColumn(name = "buyer_id")
+    private User buyer;
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
 
     public Long getId() {
         return id;
@@ -24,5 +35,21 @@ public class Purchase {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public BigDecimal getCost() {
+        return cost;
+    }
+
+    public void setCost(BigDecimal cost) {
+        this.cost = cost;
+    }
+
+    public User getBuyer() {
+        return buyer;
+    }
+
+    public void setBuyer(User buyer) {
+        this.buyer = buyer;
     }
 }

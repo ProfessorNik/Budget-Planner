@@ -5,6 +5,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
+import java.math.BigDecimal;
+
 @Entity
 @Table(name = "categories")
 public class Category {
@@ -13,6 +15,8 @@ public class Category {
     private Long id;
 
     private String name;
+
+    private BigDecimal limit;
 
     public Long getId() {
         return id;
@@ -28,6 +32,14 @@ public class Category {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public BigDecimal getLimit() {
+        return limit;
+    }
+
+    public void setLimit(BigDecimal limit) {
+        this.limit = limit;
     }
 
 }
