@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import ru.shift.budgetplanner.domain.User;
 import ru.shift.budgetplanner.dto.JwtResponseDto;
 import ru.shift.budgetplanner.dto.LoginDto;
-import ru.shift.budgetplanner.exception.InvalidJwtToken;
+import ru.shift.budgetplanner.exception.InvalidJwtException;
 import ru.shift.budgetplanner.exception.InvalidPasswordException;
 
 @Service
@@ -23,7 +23,7 @@ public class AuthService {
 
     public JwtResponseDto auth(@NonNull LoginDto loginRequest){
         User user = userService.findUserByUsername(loginRequest.getUsername());
-        if(user.getPassword().equals(loginRequest.getPassword())){
+        if(!user.getPassword().equals(loginRequest.getPassword())){
             throw new InvalidPasswordException("invalid password");
         }
 
@@ -32,7 +32,7 @@ public class AuthService {
 
     public JwtResponseDto getAccessToken(@NonNull String refreshToken){
         if(!jwtProvider.validateRefreshToken(refreshToken)){
-            throw new InvalidJwtToken("invalid refresh token");
+            throw new InvalidJwtException("invalid refresh token");
         }
         User user = getUserByRefreshToken(refreshToken);
         return generateAccessTokenWithUserData(user);
@@ -40,7 +40,7 @@ public class AuthService {
 
     public JwtResponseDto refresh(@NonNull String refreshToken){
         if(!jwtProvider.validateRefreshToken(refreshToken)){
-            throw new InvalidJwtToken("invalid refresh token");
+            throw new InvalidJwtException("invalid refresh token");
         }
         User user = getUserByRefreshToken(refreshToken);
         return generateJwtWithUserData(user);
@@ -48,7 +48,7 @@ public class AuthService {
 
     private JwtResponseDto generateAccessTokenWithUserData(@NonNull User user){
         JwtResponseDto jwtResponse = new JwtResponseDto();
-        jwtResponse.setRefreshToken(jwtProvider.generateRefreshToken(user));
+        jwtResponse.setAccessToken(jwtProvider.generateAccessToken(user));
         return jwtResponse;
     }
     private JwtResponseDto generateJwtWithUserData(@NonNull User user){

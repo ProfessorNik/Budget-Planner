@@ -16,7 +16,7 @@ public class Category {
 
     private String name;
 
-    private BigDecimal limit;
+    private BigDecimal spendingLimit;
 
     public Long getId() {
         return id;
@@ -34,12 +34,11 @@ public class Category {
         this.name = name;
     }
 
-    public BigDecimal getLimit() {
-        return limit;
+    public BigDecimal getSpendingLimit() {
+        return spendingLimit;
     }
 
-    public void setLimit(BigDecimal limit) {
-        this.limit = limit;
+    public void setSpendingLimit(BigDecimal spendingLimit) {
+        this.spendingLimit = spendingLimit;
     }
-
 }
