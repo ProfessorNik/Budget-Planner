@@ -35,7 +35,7 @@
 
     Username, password
 
-3. Logout
+3. Logout ?????
 
 ### 2.2. Управление категориями
 
