@@ -1,5 +1,6 @@
 package ru.shift.budgetplanner.service;
 
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.shift.budgetplanner.domain.User;
@@ -12,7 +13,7 @@ import ru.shift.budgetplanner.repository.UserRepository;
 public class RegistrationService {
     private final UserRepository userRepository;
 
-    public User registration(RegistrationDto registrationRequest){
+    public void registration(@NonNull RegistrationDto registrationRequest){
         if(!registrationRequest.getPassword().equals(registrationRequest.getRepeatPassword())){
             throw new RegistrationException("password and repeat password aren't equals");
         }
@@ -25,6 +26,5 @@ public class RegistrationService {
         newUser.setUsername(registrationRequest.getUsername());
         newUser.setPassword(registrationRequest.getPassword());
         userRepository.save(newUser);
-        return newUser;
     }
 }

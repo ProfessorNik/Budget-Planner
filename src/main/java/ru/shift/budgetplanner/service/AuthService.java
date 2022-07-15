@@ -2,6 +2,7 @@ package ru.shift.budgetplanner.service;
 
 import io.jsonwebtoken.Claims;
 import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.shift.budgetplanner.domain.User;
@@ -11,15 +12,10 @@ import ru.shift.budgetplanner.exception.InvalidJwtException;
 import ru.shift.budgetplanner.exception.InvalidPasswordException;
 
 @Service
+@RequiredArgsConstructor
 public class AuthService {
     private final UserService userService;
     private final JwtProvider jwtProvider;
-
-    @Autowired
-    public AuthService(UserService userService, JwtProvider jwtProvider) {
-        this.userService = userService;
-        this.jwtProvider = jwtProvider;
-    }
 
     public JwtResponseDto auth(@NonNull LoginDto loginRequest){
         User user = userService.findUserByUsername(loginRequest.getUsername());

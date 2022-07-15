@@ -1,9 +1,6 @@
 package ru.shift.budgetplanner.domain;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 import java.math.BigDecimal;
 
@@ -12,11 +9,24 @@ import java.math.BigDecimal;
 public class Category {
     @Id
     @Column(name = "id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String name;
 
     private BigDecimal spendingLimit;
+
+    @ManyToOne
+    @JoinColumn(name = "owner_id")
+    private User owner;
+
+    public User getOwner() {
+        return owner;
+    }
+
+    public void setOwner(User owner) {
+        this.owner = owner;
+    }
 
     public Long getId() {
         return id;

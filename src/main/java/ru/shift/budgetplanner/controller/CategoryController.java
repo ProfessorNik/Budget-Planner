@@ -2,38 +2,63 @@ package ru.shift.budgetplanner.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 import ru.shift.budgetplanner.dto.AddCategoryDto;
+import ru.shift.budgetplanner.dto.CategoryDto;
+import ru.shift.budgetplanner.dto.ChangeSpendingLimitDto;
 import ru.shift.budgetplanner.dto.DeleteCategoryDto;
-import ru.shift.budgetplanner.service.CategoryService;
+import ru.shift.budgetplanner.service.*;
+
+import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("api/category")
 @RequiredArgsConstructor
 @Log4j2
 public class CategoryController {
-    private final CategoryService service;
+    private final AddCategory addCategory;
+    private final DeleteCategory deleteCategory;
+    private final ChangeSpendingLimit changeSpendingLimit;
+    private final GetCategories getCategories;
+
 
     @PostMapping("/add")
-    void addCategory(@RequestBody AddCategoryDto addCategoryRequest){
+    public ResponseEntity<String> addCategory(@RequestBody AddCategoryDto addCategoryRequest){
         try {
-            service.addCategory(addCategoryRequest);
+            addCategory.exec(addCategoryRequest);
+            return ResponseEntity.ok("Category " + addCategoryRequest.getCategoryName() + "successfully added");
         }catch (RuntimeException ex){
-            log.error("category haven't added");
-            ex.printStackTrace();
+            log.error("category haven't added ", ex);
+            return ResponseEntity.of(Optional.of("Sorry, category haven't added"));
         }
     }
 
     @PostMapping("/del")
-    void deleteCategory(@RequestBody DeleteCategoryDto deleteCategoryRequest){
+    public ResponseEntity<String> deleteCategory(@RequestBody DeleteCategoryDto deleteCategoryRequest){
         try{
-            service.deleteCategory(deleteCategoryRequest);
+            deleteCategory.exec(deleteCategoryRequest);
+            return ResponseEntity.ok("Category " + deleteCategoryRequest.getCategoryName() + "successfully deleted");
         }catch (RuntimeException ex){
-            log.error("category haven't deleted");
-            ex.printStackTrace();
+            log.error("category haven't deleted", ex);
+            return ResponseEntity.of(Optional.of("Sorry, category haven't added"));
+        }
+    }
+
+    @GetMapping("/show")
+    public List<CategoryDto> showCategories(){
+        return getCategories.exec();
+    }
+    
+    @PostMapping("/change")
+    public ResponseEntity<String> changeCategory(@RequestBody ChangeSpendingLimitDto changeSpendingLimitDto) {
+        try {
+            changeSpendingLimit.exec(changeSpendingLimitDto);
+            return ResponseEntity.ok("Category " + changeSpendingLimitDto.getCategoryName() + " successfully changed");
+        }catch(RuntimeException ex){
+            log.error("category haven't changed", ex);
+            return ResponseEntity.of(Optional.of("Sorry, category haven't added"));
         }
     }
 }
