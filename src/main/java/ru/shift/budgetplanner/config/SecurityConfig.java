@@ -26,7 +26,7 @@ public class SecurityConfig {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeHttpRequests(auth -> auth
-                        .antMatchers("/api/auth/login", "/api/auth/access", "/api/hello", "/api/reg").permitAll()
+                        .antMatchers("/api/auth/login", "/api/auth/access", "/api/hello", "/api/docs","/api/reg").permitAll()
                         .anyRequest().authenticated()
                         .and()
                         .addFilterAfter(filter, UsernamePasswordAuthenticationFilter.class))

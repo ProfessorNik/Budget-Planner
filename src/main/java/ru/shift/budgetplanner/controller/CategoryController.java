@@ -35,7 +35,7 @@ public class CategoryController {
         }
     }
 
-    @PostMapping("/del")
+    @DeleteMapping("/del")
     public ResponseEntity<String> deleteCategory(@RequestBody DeleteCategoryDto deleteCategoryRequest){
         try{
             deleteCategory.exec(deleteCategoryRequest);
@@ -50,8 +50,8 @@ public class CategoryController {
     public List<CategoryDto> showCategories(){
         return getCategories.exec();
     }
-    
-    @PostMapping("/change")
+
+    @PutMapping("/change")
     public ResponseEntity<String> changeCategory(@RequestBody ChangeSpendingLimitDto changeSpendingLimitDto) {
         try {
             changeSpendingLimit.exec(changeSpendingLimitDto);
