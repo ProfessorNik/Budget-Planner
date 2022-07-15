@@ -21,6 +21,8 @@ public class Purchase {
     @JoinColumn(name = "buyer_id")
     private User buyer;
 
+    private Long addedTime;
+
     public Category getCategory() {
         return category;
     }
@@ -51,5 +53,13 @@ public class Purchase {
 
     public void setBuyer(User buyer) {
         this.buyer = buyer;
+    }
+
+    public Long getAddedTime() {
+        return addedTime;
+    }
+
+    public void setAddedTime(Long addedTime) {
+        this.addedTime = addedTime;
     }
 }

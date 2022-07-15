@@ -22,7 +22,7 @@ public class AddCategory {
         createAndSaveCategory(categoryName, user);
     }
 
-    private void createAndSaveCategory(@NonNull String categoryName, @NonNull User owner){
+    protected void createAndSaveCategory(@NonNull String categoryName, @NonNull User owner){
         if(categoryService.getCategoryByNameAndOwner(categoryName, owner) != null) {
             throw new CategoryAlreadyExistException("category with name " +  categoryName + "  already exist");
         }

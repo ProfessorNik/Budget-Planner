@@ -2,9 +2,6 @@ package ru.shift.budgetplanner.service;
 
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
-import org.apache.tomcat.util.descriptor.web.ContextHandler;
-import org.springframework.security.core.context.SecurityContext;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import ru.shift.budgetplanner.domain.User;
 import ru.shift.budgetplanner.exception.UserNotFoundException;

@@ -18,8 +18,7 @@ public class DeleteCategory {
     public void exec(@NonNull DeleteCategoryDto deleteCategoryRequest){
         User user = getCurrentUser.exec();
         String categoryName = deleteCategoryRequest.getCategoryName();
-        Category category = categoryService.getCategoryByNameAndOwnerNotNull(categoryName, user);
-        categoryService.deleteCategory(category);
+        categoryService.deleteCategoryByNameAndOwner(categoryName, user);
     }
 
 }

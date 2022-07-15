@@ -19,6 +19,11 @@ public class CategoryService {
         return categoryRepository.findCategoriesByOwner(owner);
     }
 
+    public void deleteCategoryByNameAndOwner(@NonNull String categoryName, @NonNull User owner){
+        categoryRepository.deleteCategoryByNameAndOwner(categoryName, owner);
+    }
+
+
     public Category saveCategory(@NonNull Category category){
         return categoryRepository.save(category);
     }

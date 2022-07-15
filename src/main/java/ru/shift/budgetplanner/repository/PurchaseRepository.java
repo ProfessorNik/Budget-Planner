@@ -12,4 +12,5 @@ import java.util.List;
 public interface PurchaseRepository extends JpaRepository<Purchase, Long> {
     List<Purchase> findPurchasesByBuyer(User buyer);
     List<Purchase> findPurchasesByBuyerAndCategory(User buyer, Category category);
+    void deletePurchaseById(Long id);
 }
